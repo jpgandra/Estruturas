@@ -1,0 +1,68 @@
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct alunos{
+     char nome[100];
+     int idade;
+     float nota;
+ } alunos;
+
+typedef struct aprp{
+     struct alunos aprovados;
+     struct alunos reprovados;
+ } aprp;
+
+int main()
+{
+    int qtd, i=0, y=0, z=0;
+    printf("Qtd de alunos: ", i+1);
+    scanf("%i", &qtd);
+    fflush(stdin);
+    alunos x[qtd];
+    aprp apr[qtd];
+    do{
+    system("cls");
+    printf("--------------------------------%i Aluno--------------------------------\n", i+1);
+    printf("\n||Nome do aluno:");
+    gets((x[i].nome));
+    fflush(stdin);
+    printf("\n||Idade:");
+    scanf("%i", &(x[i].idade));
+    fflush(stdin);
+    printf("\n||Nota:");
+    scanf("%f", &(x[i].nota));
+    fflush(stdin);
+    i++;
+    }while(i<qtd);
+    for(i=0;i<qtd;i++)
+    {
+        if((x[i].nota)>5)
+        {
+            apr[z].aprovados=x[i];
+            z++;
+        }
+        else
+        {
+            apr[y].reprovados=x[i];
+            y++;
+        }
+    }
+    for(i=0;i<z;i++)
+    {
+            system("cls");
+            printf("--------------------------------%i Aluno Aprovado--------------------------------\n", i+1);
+            printf("\n||Nome do aluno: %s", apr[i].aprovados.nome);
+            printf("\n||Idade:%i", apr[i].aprovados.idade);
+            printf("\n||Nota:%.2f", apr[i].aprovados.nota);
+            getch();
+    }
+    for(i=0;i<y;i++)
+    {
+            system("cls");
+            printf("--------------------------------%i Aluno Reprovado--------------------------------\n", i+1);
+            printf("\n||Nome do aluno: %s", apr[i].reprovados.nome);
+            printf("\n||Idade:%i", apr[i].reprovados.idade);
+            printf("\n||Nota:%.2f", apr[i].reprovados.nota);
+            getch();
+    }
+    return 0;
+}
