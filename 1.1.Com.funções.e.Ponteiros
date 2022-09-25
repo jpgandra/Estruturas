@@ -1,0 +1,94 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct reg{
+    char Nome[100];
+    int Idade;
+    float Nota;
+} reg;
+
+void aloca(reg **p, int tam);
+void registra(reg *p);
+void continuar(char *pr);
+void mostra(reg *p, int tam);
+
+int main()
+{
+    reg *p=NULL;
+    int i=0;
+    char resp;
+    do{
+        aloca(&p, i+1);
+        registra(p+i);
+        continuar(&resp);
+        i++;
+    }while(resp=='s'||resp=='S');
+    mostra(p, i);
+    return 0;
+}
+
+
+void aloca(reg **p, int tam)
+{
+    if((*p=(reg*) realloc(*p,tam*sizeof(reg)))==NULL)
+    {
+        exit(1);
+    }
+}
+
+
+void registra(reg *p)
+{
+    printf("\nNome: ");
+    gets(p->Nome);
+    fflush(stdin);
+    printf("\nIdade: ");
+    scanf("%i", &p->Idade);
+    fflush(stdin);
+    do{
+    printf("\nNota: ");
+    scanf("%f", &p->Nota);
+    fflush(stdin);
+    if(p->Nota<0||p->Nota>10)
+        printf("\nEscreva uma Nota valida..........\n");
+    }while(p->Nota<0||p->Nota>10);
+    system("cls");
+}
+
+
+void continuar(char *pr)
+{
+    printf("Deseja continuar?\n <S/N>:");
+    scanf("%c", pr);
+    fflush(stdin);
+    system("cls");
+}
+
+
+void mostra(reg *p, int tam)
+{
+    system("cls");
+    int i;
+    float med=0;
+    for(i=0;i<tam;i++, p++)
+    {
+        med+=p->Nota;
+    }
+    med/=tam;
+    p-=tam;
+    printf("\n-------------------------\n");
+    printf("||Media das notas: %.2f||", med);
+    printf("\n-------------------------\n");
+    for(i=0;i<tam;i++,p++)
+    {
+        printf("\n-------------Aluno %i-------------\n", i+1);
+        printf("\nNome: %s", p->Nome);
+        printf("\nIdade: %i", p->Idade);
+        printf("\nNota: %.2f", p->Nota);
+        if(p->Nota>=med)
+            printf("\n---------Aluno Aprovado----------\n");
+        else
+            printf("\n---------Aluno Reprovado---------\n");
+        getch();
+    }
+}
